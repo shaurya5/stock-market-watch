@@ -1,4 +1,5 @@
 const { google } = require("googleapis");
+const cron = require("node-cron");
 
 const authSheets = async () => {
   const auth = new google.auth.GoogleAuth({
@@ -78,7 +79,9 @@ const main = async () => {
   getSheetData().then((data) => console.log(data));
 };
 
-main();
+cron.schedule("*/3 * * * *", () => {
+  main();
+});
 
 /*
   LTP - last price
